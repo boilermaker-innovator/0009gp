@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings with Teaser Popup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .job-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .job-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .job-title {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        .job-info {
+            margin: 5px 0;
+            color: #666;
+        }
+        .teaser-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .teaser-button:hover {
+            background-color: #2980b9;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            max-height: 80vh; /* Limit height to 80% of viewport height */
+            overflow: hidden; /* Hide scrollbars for the modal content */
+            position: relative;
+        }
+        .modal-body {
+            max-height: 60vh; /* Limit the height of the scrollable area */
+            overflow-y: auto; /* Enable vertical scrolling if content overflows */
+        }
+        .modal-tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .tab-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 5px;
+            transition: background-color 0.3s ease;
+        }
+        .tab-button:hover {
+            background-color: #2980b9;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="job-list">
+        <h1>Current Job Openings</h1>
+        
+        <!-- Add job items here -->
+        <div class="job-item">
+            <h2 class="job-title">Software Developer</h2>
+            <p class="job-info"><strong>Location:</strong> Sydney, NSW</p>
+            <p class="job-info"><strong>Salary:</strong> $90,000 - $120,000 per year</p>
+            <button class="teaser-button" onclick="openTeaser('job1')">View Job Teaser</button>
+        </div>
+
+        <!-- Add more job items as needed -->
+    </div>
+
+    <div id="teaserModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeTeaser()">&times;</span>
+            <div id="teaserContent" class="modal-body">
+                <h2 id="modalJobTitle"></h2>
+                <p id="modalJobDescription"></p>
+            </div>
+            <div class="modal-tabs">
+                <button class="tab-button" onclick="closeTeaser()">Close</button>
+                <!-- Add more tabs if needed -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var modal = document.getElementById("teaserModal");
+
+        function openTeaser(jobId) {
+            var modalTitle = document.getElementById("modalJobTitle");
+            var modalDescription = document.getElementById("modalJobDescription");
+
+            switch(jobId) {
+                case 'job1':
+                    modalTitle.innerText = "Software Developer";
+                    modalDescription.innerHTML = `
+                        <p><strong>Location:</strong> Sydney, NSW</p>
+                        <p><strong>Salary:</strong> $90,000 - $120,000 per year</p>
+                        <p><strong>Type:</strong> Full-time</p>
+                        <p>Join our dynamic team as a Software Developer and contribute to cutting-edge projects.</p>
+                        <p><strong>Responsibilities:</strong></p>
+                        <ul>
+                            <li>Develop and maintain software applications</li>
+                            <li>Collaborate with cross-functional teams</li>
+                            <li>Participate in code reviews</li>
+                            <li>Troubleshoot and debug applications</li>
+                        </ul>
+                        <p><strong>Requirements:</strong></p>
+                        <ul>
+                            <li>Bachelor's degree in Computer Science or related field</li>
+                            <li>Proficiency in Java, Python, or C++</li>
+                            <li>Experience with web development frameworks</li>
+                            <li>Strong problem-solving skills</li>
+                        </ul>
+                    `;
+                    break;
+                // Add more cases as needed for other jobs
+            }
+
+            modal.style.display = "block";
+        }
+
+        function closeTeaser() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
